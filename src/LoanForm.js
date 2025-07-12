@@ -3,6 +3,8 @@ import Modal from "./Modal"
 import { useState } from "react"
 export default
 function LoanForm(){
+    const[errorMessage,setErrorMessage]=useState(null)
+    const[showModal , setShowModal] = useState(false)
     const[loanInputs,setLoanInputs]= useState({
         name:"",
         PhoneNumper:"",
@@ -12,7 +14,14 @@ function LoanForm(){
     })
     function handleFormSubmit(event){
         event.preventDefault();
-        alert("Hi")
+        setErrorMessage(null)
+        let {age , PhoneNumper} = loanInputs;
+        if(age <18 || age > 100){
+            setErrorMessage("The age is not Allowed")
+        }else if (PhoneNumper.length <10 || PhoneNumper.length>12 ){
+            setErrorMessage("Phone Numper Format Is Incorrect")
+        }
+        setShowModal(true)
     }
     const btnDisabled = 
         loanInputs.name =="" ||
@@ -20,7 +29,11 @@ function LoanForm(){
         loanInputs.age ==""
     
     return(
-        <div className="flex" style={{flexDirection:"column"}}>
+        <div onClick={()=> {
+            if (showModal){
+                setShowModal(false)
+            }
+        }} className="flex" style={{flexDirection:"column"}}>
             <form id="loan-form" className="flex" style={{flexDirection:"column"}}>
                 <h1>Requesting a Loan</h1>
                 <hr></hr>
@@ -60,7 +73,7 @@ function LoanForm(){
                 disabled={btnDisabled}
                 >Submit</button>
             </form>
-            {/* <Modal/> */}
+            <Modal errorMessage={errorMessage} isVisable={showModal}/>
         </div>
     )
 }
