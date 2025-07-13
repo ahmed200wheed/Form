@@ -16,7 +16,7 @@ function LoanForm(){
         event.preventDefault();
         setErrorMessage(null)
         let {age , PhoneNumper} = loanInputs;
-        if(age <18 || age > 100){
+        if(age <18 || age > 100 ){
             setErrorMessage("The age is not Allowed")
         }else if (PhoneNumper.length <10 || PhoneNumper.length>12 ){
             setErrorMessage("Phone Numper Format Is Incorrect")
@@ -44,12 +44,12 @@ function LoanForm(){
                 }}/>
 
                 <label>Phone Numper:</label>
-                <input value={loanInputs.PhoneNumper} onChange={(event)=>{
+                <input type="number" value={loanInputs.PhoneNumper} onChange={(event)=>{
                     setLoanInputs({...loanInputs,PhoneNumper:event.target.value})
                 }}/>
 
                 <label>Age:</label>
-                <input value={loanInputs.age} onChange={(event)=>{
+                <input type="number" value={loanInputs.age} onChange={(event)=>{
                     setLoanInputs({...loanInputs,age:event.target.value})
                 }}/>
 
